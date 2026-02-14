@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beauty Shop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <style>
+    /* Basic reset */
+    * {
+         margin: 0; 
+         padding: 0; 
+         box-sizing: border-box; 
+        }
+    body {
+         font-family: Arial, sans-serif;
+         }
+    a { 
+        text-decoration: none;
+         color: #000; 
+         font-weight: 600; 
+         margin: 15px 0; 
+        }
+
+    /* Navigation */
+    .navigation .logo img {
+         border-radius: 50%; 
+        }
+
+    table {
+         width: 100%;
+          padding: 10px; 
+          background-color: #faf6f6;
+         }
+
+    .search-box {
+         display: flex; 
+         align-items: center; 
+         gap: 5px;
+         }
+    .search-box input {
+         padding: 8px; 
+         font-size: 16px; 
+         border: 1px solid #ccc;
+          border-radius: 5px;
+           outline: none; 
+           flex: 1; 
+        }
+    .search-box button {
+         background-color: #007bff;
+          color: #fff;
+           border: none; 
+           padding: 8px 12px;
+            border-radius: 5px;
+             cursor: pointer;
+             }
+    .nav-btns a {
+         color: #333;
+          font-size: 20px;
+           padding: 0 10px; 
+           text-decoration: none;
+         }
+
+    /* Main section */
+    #main {
+         width: 85%;
+          padding: 70px;
+           border-radius: 20px;
+            min-height: 400px; 
+            margin: 30px auto; 
+            display: grid;
+             grid-template-columns: 1fr 1fr;
+              align-items: center;
+               background-color: #ffedf6;
+             }
+    .main-image img {
+         width: 120%; 
+         height: 120%; 
+         object-position: center; 
+         object-fit: cover; 
+         border-radius:50%; 
+        }
+    .main-text span {
+         color: black; 
+         text-transform: uppercase; 
+         letter-spacing: 4px; 
+         font-size: 0.8rem;
+          font-weight: 500;
+         }
+    .main-text h1 {
+         font-size: 2.4rem; 
+         color: #333333; 
+         font-weight: 800; 
+        }
+    .main-text h1 font { 
+        background-color: #c02f73; 
+        padding: 0px 5px;
+     }
+
+    /* Product grid styling */
+    .product-grid-3 {
+         display: grid;
+          grid-template-columns: repeat(3, 1fr);
+           gap: 15px;
+            max-width: 1200px; 
+            width: 90%; 
+            margin: 50px auto; 
+        }
+    .product-grid-box { 
+        position: relative;
+         height: 210px;
+          border-radius: 10px;
+           overflow: hidden; 
+           display: flex; 
+           justify-content: flex-end;
+         }
+    .product-grid-text {
+         position: absolute;
+          left: 14%;
+           top: 50%;
+            transform: translate(-14%, -50%); 
+            display: flex;
+             flex-direction: column;
+              align-items: flex-start;
+               justify-content: center;
+             }
+    .product-grid-box img {
+         height: 100%;
+          object-fit: cover;
+           object-position: center right;
+         }
+    .product-grid-text span {
+         color: black;
+          font-size: 0.9rem;
+           font-weight: 500;
+         }
+
+    /* New products section styling */
+    #new_products {
+         width: 95%; 
+         border-radius: 1%;
+          margin: 70px auto;
+           padding: 150px;
+            background-color: #f8f8f8;
+         }
+    .new-p-heading {
+         display: flex;
+          justify-content: space-between;
+           align-items: center; 
+           margin-bottom: 20px; 
+           padding: 0 20px;
+         }
+    .new-p-heading h3 { font-size: 24px; color: #333; }
+    .new-p-heading ul { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; }
+    .new-p-heading ul li { cursor: pointer; padding: 5px 10px; color: #666; font-size: 14px; border-radius: 5px; transition: background-color 0.3s; }
+    .new-p-heading ul .active { background-color: #007bff; color: #fff; }
+    
+     .new-product-grid-container {
+       display: grid;
+        grid-template-columns: repeat(4, 1fr);
+         gap: 35px; 
+         padding: 0 20px;
+          align-items: start;
+         }
+    .new-product-box-wrapper { display: flex;
+       justify-content: center;
+        min-height: 250px; }
+    .new-product-box-wrapper.hidden { display: none; }
+    .new-product-box {
+       background-color: #fff;
+        border-radius: 10px;
+         padding: 15px;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+          text-align: center;
+          width: 110%;         /* takes full width of the grid item */
+          height: 110%;        /* ensures equal height across all items */
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+         }
+         .new-product-img{
+          border: 1px solid #ddd;
+          padding: 16px;
+          transition: transform 0.3s, box-shadow 0.3s;
+          border-radius: 8px;
+         }
+         .new-product-img:hover{
+          transform: scale(1.05);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+          border-color: #ff69b4;
+         }
+    .new-product-img img { 
+      width: 100%;
+       border-radius: 10px;
+       height: 160px;     /* Adjust height as needed */
+       object-fit: cover;
+       }
+    .new-product-img span { display: block; font-size: 12px; color: #666; margin: 5px 0; }
+    .new-product-title { font-size: 18px; color: #333; margin: 10px 0; text-decoration: none; }
+    .new-product-text span { display: block; font-size: 16px; color: #333; margin: 5px 0; }
+    .new-p-cart-btn { display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: #28a745; color: #fff; border-radius: 5px; text-decoration: none; }
+
+    /* Footer, display-sec, brands styling preserved below... */
+    .display-sec { width: 90%; margin: 70px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .dis-container { border-radius: 10px; margin: auto; display: flex; align-items: center; justify-content: space-between; background-color: #f8f1ed; padding: 20px; width: 100%; height: 300px; color: #333; }
+    .d-sec { 
+        border-radius: 10px;
+         margin: 20px auto;
+          display: flex;
+           align-items: center;
+           justify-content: space-between;
+            background-color: #fff8b8;
+             padding: 20px;
+              width: 80%;
+               height: 160px; 
+               color: #414141; 
+            }
+    .trusted-partner { width: 90%;
+     margin: 50px auto;
+     background-color: #fde7e7;
+     padding: 20px; 
+     border-radius: 20px;
+     }
+    .brands { margin: 30px auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
+    .brand-name img { height: 60px; width: 150px; }
+    .footer { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 20px; background-color: #f4f4f4; padding: 40px; color: #333; }
+    .footer-section h2 { font-size: 24px; font-weight: bold; }
+    .footer-section h3 { font-size: 18px; font-weight: bold; margin-bottom: 15px; }
+    .footer-section p, .footer-section ul li { font-size: 14px; margin-bottom: 8px; line-height: 1.5; }
+    .footer-section ul { list-style-type: none; }
+    .footer-section ul li a { text-decoration: none; color: #333; }
+    .footer-section ul li a:hover { color: #0073e6; }
+    .social-icons a { font-size: 20px; margin-right: 10px; color: #333; text-decoration: none; }
+    .social-icons a:hover { color: #0073e6; }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <td>
+        <nav class="navigation">
+          <a href="#" class="logo">
+            <img src="https://i.pinimg.com/originals/20/99/3e/20993ef010fe5afa31ff46c1dcc6f4ea.jpg" height="100" width="100" />
+          </a>
+        </nav>
+      </td>
+      <td>
+        <form class="search-box">
+          <input type="text" placeholder="Search Product Here" required />
+          <button><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </td>
+      <td>
+        <div class="nav-btns">
+          <a href="login.html" class="nav-user"><i class="fa-regular fa-user"></i></a>
+          <a href="#" class="nav-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <section id="main">
+    <div class="main-text">
+      <h2><span><i>New Collection</i></span></h2>
+      <h1>Welcome To Shop Beauty Products...</h1>
+      <p>Hey welcome to shop here you can find your favourite products and your favourite brands of products on facewash, lipsticks, face creams... You will feel satisfied using these products, make your skin brighter and shine...</p>
+      <a href="#">Shop Now</a>
+    </div>
+    <div class="main-image">
+      <img src="https://www.mitchellusa.co.in/cdn/shop/articles/Six-beauty-essentials-every-woman-should-have-in-her-purse-source-thebeautylookbook.com.jpg?v=1645844061" alt="main-banner" />
+    </div>
+  </section>
+
+  <section id="new_products">
+    <div class="new-p-heading">
+      <h3>New Products</h3>
+      <ul>
+        <li class="filter-list active" data-filter="all">All</li>
+        <li class="filter-list" data-filter="face">Face</li>
+        <li class="filter-list" data-filter="skin">Skin</li>
+        <li class="filter-list" data-filter="lipsticks">Lipsticks</li>
+        <li class="filter-list" data-filter="nail">Nail's</li>
+      </ul>
+    </div>
+
+    <!-- ALL PRODUCT WRAPPERS INSIDE THIS GRID CONTAINER -->
+    <div class="new-product-grid-container">
+      <!-- Repeat for each product -->
+      <div class="new-product-box-wrapper skin">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Skin Care</span>
+            <img class="abc" src="https://osea.imgix.net/files/HBS-1_DTC_ALLURE-NEA_38a32e4f-1433-4e20-b5bf-b3baf0214c0b.jpg" alt="OSEA skin care" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">OSEA skin care</a>
+            <span>$299</span>
+           <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('OSEA skin care', this.closest('.new-product-box').querySelector('img').src, 299)">
+     Add to Cart
+     </a> 
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper skin">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Skin Care</span>
+            <img class="abc" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkbKqojBJnLwuJffRyWmbnO-C8eOX7zo-iRIYdNU371A8vyP5AtG5ZKIyCkcjUI_6F3Zo" alt="Grove skin cleanser" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Grove skin cleanser</a>
+            <span>$350</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Grove skin cleanser', this.closest('.new-product-box').querySelector('img').src, 350)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper skin">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Skin Care</span>
+            <img class="abc" src="https://www.mcaffeine.com/cdn/shop/files/1_584d78e1-8c6c-436c-8b13-d908e1bc08ee.jpg" alt="Caffeine moisturizer" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Caffeine moisturizer</a>
+            <span>$400</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Caffeine moistuizer', this.closest('.new-product-box').querySelector('img').src, 400)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper face">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Face Care</span>
+            <img class="abc" src="https://www.srisritattva.com/cdn/shop/files/RoseFaceWash.jpg" alt="Rose facewash" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Rose facewash</a>
+            <span>$250</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Rose facewash', this.closest('.new-product-box').querySelector('img').src, 250)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper face">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Face Care</span>
+            <img class="abc" src="https://cdn.shopify.com/s/files/1/0390/2985/files/INTERNAL_-Saffron-_-Papaya-glow_480x480.jpg?v=1706692958" alt="Rose facewash" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Papaya facewash</a>
+            <span>$150</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Papaya facewash', this.closest('.new-product-box').querySelector('img').src, 150)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+      
+
+    <div class="new-product-box-wrapper face">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Face Care</span>
+            <img class="abc" src="https://m.media-amazon.com/images/I/81WY0ZxeT3L.jpg" alt="Rose facewash" /></a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Charcoal facewash</a>
+            <span>$299</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Charcoal facewash', this.closest('.new-product-box').querySelector('img').src, 299)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="new-product-box-wrapper face">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Face Care</span>
+            <img class="abc" src="https://www.quickpantry.in/cdn/shop/products/lakme-blush-and-glow-strawberry-facewash-quick-pantry-2.jpg?v=1710538438" alt="Rose facewash" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Strawberry facewash</a>
+            <span>$150</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Strawberry facewash', this.closest('.new-product-box').querySelector('img').src, 150)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper face">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Face Care</span>
+            <img class="abc" src="https://images.mamaearth.in/catalog/product/h/o/honey-malai-face-wash1.jpg" alt="Mamaearth honey facewash" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Mamaearth honey facewash</a>
+            <span>$399</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Mamaeart honey facewash', this.closest('.new-product-box').querySelector('img').src, 399)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper face">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Face Care</span>
+            <img class="abc" src="https://magicaljar.com/wp-content/uploads/2022/07/magicaljar-kumkumadi-glowing-face-wash-1.jpg" alt="Kumkumadi Glowing Facewash" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Kumkumadi Glowing Facewash</a>
+            <span>$599</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Kumkumadi Glowing facewash', this.closest('.new-product-box').querySelector('img').src, 599)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper face">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Face Care</span>
+            <img class="abc" src="https://joypersonalcare.com/cdn/shop/files/RevivifyCoffeeEnergizingGlowFaceWash150F.jpg" alt="Coffee Facewash" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Coffee Facewash</a>
+            <span>$250</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('coffee Facewash', this.closest('.new-product-box').querySelector('img').src, 250)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper lipsticks">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Lipsticks</span>
+            <img class="abc" src="https://sdcdn.io/mac/in/mac_sku_NY9N70_1x1_0.png" alt="Matte Lipstick Set" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Matte Lipstick </a>
+            <span>$199</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Matte Lipstick', this.closest('.new-product-box').querySelector('img').src, 199)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper lipsticks">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Lipsticks</span>
+            <img class="abc" src="https://img.thecdn.in/365412/swiss-beauty-pure-matte-lipsticks-38g-peaches-n-c-1722090298376_SKU-8079_0.jpg?width=600&format=webp" alt="Matte Lipstick Set" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Matte Lipstick </a>
+            <span>$299</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Matte Lipstick', this.closest('.new-product-box').querySelector('img').src, 299)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper lipsticks">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Lipsticks</span>
+            <img class="abc" src="https://images-static.nykaa.com/media/catalog/product/8/0/808b92e8901030959967_10.jpg?tr=w-500" alt="Matte Lipstick Set" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Shine Lipstick </a>
+            <span>$180</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Shine Lipstick', this.closest('.new-product-box').querySelector('img').src, 180)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper lipsticks">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Lipsticks</span>
+            <img class="abc" src="https://glam21.in/cdn/shop/products/LG021-01-2.png" alt="Glam liquid Lipstick" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Glam liquid Lipstick</a>
+            <span>$150</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Glam liquid Lipstick', this.closest('.new-product-box').querySelector('img').src, 150)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper lipsticks">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Lipsticks</span>
+            <img class="abc" src="https://d1ak51zwgmtslz.cloudfront.net/PRODUCTS_EN/8682536032865_1.jpg" alt="silk Lipstick Set" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">silk Lipstick </a>
+            <span>$200</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('slik Lipstick', this.closest('.new-product-box').querySelector('img').src, 200)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper lipsticks">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Lipsticks</span>
+            <img class="abc" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIf6RrOlwqUmoOrYBOaqXE3UOqPiZIoddyTA&s" alt="silk Lipstick Set" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Long-lasting Lipstick </a>
+            <span>$250</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Long-lasting Lipstick', this.closest('.new-product-box').querySelector('img').src, 250)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+       <div class="new-product-box-wrapper lipsticks">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Lipsticks</span>
+            <img class="abc" src="https://asset20.ckassets.com/blog/wp-content/uploads/sites/5/2021/08/Swiss-Beauty-Matte-Liquid-Lipsticks-1024x512.jpg" alt="silk Lipstick Set" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Matte Lipstick </a>
+            <span>$180</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Matte Lipstick', this.closest('.new-product-box').querySelector('img').src, 180)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+ 
+        <div class="new-product-box-wrapper lipsticks">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Lipsticks</span>
+            <img class="abc" src="https://www.jiomart.com/images/product/original/rvwdawmekl/c-a-l-los-angeles-liquid-matte-lipstick-long-lasting-smudge-proof-lip-color-for-womens-everyday-use-with-nourishing-hydrating-formula-lipsticks-for-girls-women-orchid-product-images-orvwdawmekl-p608863114-1-202404261451.jpg?im=Resize=(420,420)" alt="silk Lipstick Set" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Liquid-Matte Lipstick </a>
+            <span>$199</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Liquid-Matte Lipstick', this.closest('.new-product-box').querySelector('img').src, 199)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div> 
+      
+      <div class="new-product-box-wrapper nail">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Nail Care</span>
+            <img class="abc" src="https://marscosmetics.in/cdn/shop/files/WEBSITEczpg.jpg" alt="Mars Euro Nail Lacquer" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Mars Euro Nail Lacquer</a>
+            <span>$180</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Mars Euro Nail Lacquer', this.closest('.new-product-box').querySelector('img').src, 180)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper nail">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Nail Care</span>
+            <img class="abc" src="https://juicecosmetics.in/cdn/shop/products/C02.png?v=1750940963&width=1000" alt="Mars Euro Nail Lacquer" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">ASH Nail Lacquer</a>
+            <span>$230</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('ASH Nail Lacquer', this.closest('.new-product-box').querySelector('img').src, 230)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+       <div class="new-product-box-wrapper nail">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Nail Care</span>
+            <img class="abc" src="https://swissbeauty.in/cdn/shop/products/MS-60-02B.jpg?v=1748634283&width=620" alt="Mars Euro Nail Lacquer" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Shine-Glitter Nail Lacquer</a>
+            <span>$200</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Shine-Glitter Nail Lacquer', this.closest('.new-product-box').querySelector('img').src, 200)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper nail">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Nail Care</span>
+            <img class="abc" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4xR3eqnA1dwJa7pkSfDmChFAGOYEGgxOqOQ&s" alt="Mars Euro Nail Lacquer" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Color affair Nail Lacquer</a>
+            <span>$120</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Color affair Nail Lacquer', this.closest('.new-product-box').querySelector('img').src, 120)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+        <div class="new-product-box-wrapper nail">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Nail Care</span>
+            <img class="abc" src="https://www.thenailshop.in/wp-content/uploads/2021/10/glam_mani_pedi_nail_polish_black_02.jpg" alt="Mars Euro Nail Lacquer" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Color affair Nail Lacquer</a>
+            <span>$180</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Color affair Nail Lacquer', this.closest('.new-product-box').querySelector('img').src, 180)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div> 
+
+      <div class="new-product-box-wrapper nail">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Nail Care</span>
+            <img class="abc" src="https://media6.ppl-media.com//tr:h-750,w-750,c-at_max,dpr-2,q-40/static/img/product/276378/beauty-people-high-shine-nail-polish_1_display_1643964234_94af5c2c.jpg" alt="Mars Euro Nail Lacquer" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Color affair Nail Lacquer</a>
+            <span>$200</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Nail Lacquer', this.closest('.new-product-box').querySelector('img').src, 200)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div> 
+
+      <div class="new-product-box-wrapper nail">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Nail Care</span>
+            <img class="abc" src="https://www.oliviabeauty.in/cdn/shop/files/02BOP_1e5de692-bde4-4fe0-ae22-973e554d4f06_1024x1024.jpg" alt="Best Polish Kit" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Best Polish Kit</a>
+            <span>$299</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Best Polish Kit', this.closest('.new-product-box').querySelector('img').src, 299)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper nail">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Nail Care</span>
+            <img class="abc" src="https://www.oliviabeauty.in/cdn/shop/files/Color-me-true-nail-polish-White-Sugar_6e9bf304-22f1-4dd2-85c2-b5db60926839.jpg" alt="Olivia Nail Polish" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Olivia Nail Polish</a>
+            <span>$280</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Olivia Nail Polish', this.closest('.new-product-box').querySelector('img').src, 280)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional items: hydrating serum, brightening mask -->
+      <div class="new-product-box-wrapper skin">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Skin Care</span>
+            <img class="abc" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRArn8NKKK9lAgyGfALqzvGM0x1Pi8xYKglzA" alt="Hydrating Serum" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Hydrating Serum</a>
+            <span>$230</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Hydrating Serum', this.closest('.new-product-box').querySelector('img').src, 230)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper skin">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Skin Care</span>
+            <img class="abc" src="https://plumgoodness.com/cdn/shop/files/MM_BodyLotion_01.jpg?v=1732173529&width=460" alt="Hydrating Serum" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Body lotion</a>
+            <span>$120</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Body lotion', this.closest('.new-product-box').querySelector('img').src, 120)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+       <div class="new-product-box-wrapper skin">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Skin Care</span>
+            <img class="abc" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCuQ3jdmmPC06S59S-21_t89RlkAmwLMw8qA&s" alt="Hydrating Serum" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Body wash</a>
+            <span>$145</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Body wash', this.closest('.new-product-box').querySelector('img').src, 145)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper skin">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Skin Care</span>
+            <img class="abc" src="https://cdn.salla.sa/RarZy/uLGIIGDvaXjv3qLlW4rud7k4z08perx2xsfW2zKs.png" alt="Hydrating Serum" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Body wash</a>
+            <span>$230</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Body wash', this.closest('.new-product-box').querySelector('img').src, 230)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper skin">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Skin Care</span>
+            <img class="abc" src="https://www.quickpantry.in/cdn/shop/products/vaseline-healthy-bright-daily-brightening-body-lotion-quick-pantry-2.jpg?v=1710538191" alt="Hydrating Serum" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Body lotion</a>
+            <span>$330</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Body lotion', this.closest('.new-product-box').querySelector('img').src, 330)">
+     Add to Cart
+     </a>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="new-product-box-wrapper face">
+        <div class="new-product-box">
+          <a href="#" class="new-product-img">
+            <span>Face Care</span>
+            <img class="abc" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVzqbSEgQhDJ5RBb5TGKV9FP-Vp09e6LYhGQ" alt="Brightening Mask" />
+          </a>
+          <div class="new-product-text">
+            <a class="new-product-title" href="#">Brightening Mask</a>
+            <span>$220</span>
+            <a href="#" class="new-p-cart-btn"
+     onclick="addToCart('Brightening Mask', this.closest('.new-product-box').querySelector('img').src, 220)">
+     Add to Cart
+     </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- display‑sec, trusted‑partner, footer unchanged... -->
+  <div class="display-sec">
+    <div class="dis-container">
+      <div class="display-text">
+        <h2>All type of Make Up</h2>
+        <p>Skin care Product</p>
+        <h3>Shop Now</h3>
+      </div>
+      <div class="display-img"><img src="https://lh3.googleusercontent.com/IkCkm4f8AJMbnJSPPq_2ErenkiydUEgFthtLPrRoyWoXcIbUCjaVX66e2clnl973nb6kxoZWeu3Hl7R5yIhUPHBCMg=w1000" 
+        alt="abcd" 
+        style="height:200px;width:200px;
+        border-radius:50%"/></div>
+    </div>
+    <div class="display-one">
+      <div class="dispaly-two">
+        <div class="d-sec"><div class="d-text"><h2>Gold Natural Lotion</h2><p>Skin care Product</p><h3>Shop Now</h3></div><div class="d-img"><img src="https://img.freepik.com/free-photo/ingredients-cosmetics_23-2148574936.jpg?semt=ais_hybrid&w=740&q=80" alt="" style="height:150px;width:150px;border-radius:50%" /></div></div>
+        <div class="d-sec"><div class="d-text"><h2>Natural Lotion</h2><p>Skin care product</p><h3>Shop now</h3></div><div class="d-img"><img src="https://www.shutterstock.com/image-photo/jar-white-freshly-made-skin-260nw-341820833.jpg" alt="" style="height:150px;width:150px;border-radius:50%" /></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="trusted-partner">
+    <h1>Our Trusted Partner</h1>
+    <div class="brands">
+      <div class="brand-name"><img src="data:image/png;base64,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" alt="" /></div>
+      <div class="brand-name"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMN8DB8CD0CNAUcB2tTY6yG4fv2EzdyxCHFl6AGLyS1Nzg-_tnbstPZDGKeQnvsNXaFuk&usqp=CAU" alt="" /></div>
+      <div class="brand-name"><img src="https://www.nicepng.com/png/detail/83-837921_loral-paris-logo-loreal-png.png" alt="" /></div>
+      <div class="brand-name"><img src="https://hippoprod.s3.amazonaws.com/merchants/logos/000/000/054/large/nykaa_india_logo.png?1461365404" alt="" /></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-section">
+      <h2>LOGO</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi quas neque repudiandae nihil.</p>
+      <div class="social-icons">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-instagram"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-section">
+      <h3>Main Links</h3>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Services</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>External Links</h3>
+      <ul>
+        <li><a href="#">Our Products</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Disclaimer</a></li>
+        <li><a href="#">Terms and Conditions</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Our Products</h3>
+      <ul>
+        <li><a href="#">Skin Care</a></li>
+        <li><a href="#">Hair Care</a></li>
+        <li><a href="#">Nail Polish</a></li>
+        <li><a href="#">Eye Liners</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const filterButtons = document.querySelectorAll(".filter-list");
+      const productWrappers = document.querySelectorAll(".new-product-box-wrapper");
+      filterButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          const filter = button.getAttribute("data-filter");
+          filterButtons.forEach(btn => btn.classList.remove("active"));
+          button.classList.add("active");
+          productWrappers.forEach(wrapper => {
+            if (filter === "all" || wrapper.classList.contains(filter)) {
+              wrapper.classList.remove("hidden");
+            } else {
+              wrapper.classList.add("hidden");
+            }
+          });
+        });
+      });
+    });
+
+    function addToCart(title, image, price) {
+    // Get existing cart items from localStorage
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Check if product already exists → update quantity
+    const existing = cart.find(item => item.title === title);
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({ title, image, price, quantity: 1 });
+    }
+
+    // Save back to localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Redirect to cart page
+    window.location.href = "cart.html";
+  }
+  </script>
+</body>
+</html>
